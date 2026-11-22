@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="ru"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#000"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>DEAD HAND 21</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -237,6 +237,20 @@ body.intro #tl,body.intro #tc,body.intro .act,body.intro #bx,body.intro .lbl,bod
 .lbl{display:flex;flex-direction:column;align-items:center}.lbl u{order:0}.lbl i{order:1}.lbl b{order:2;font-size:12px;opacity:.7}
 .ttl{left:max(28px,calc(env(safe-area-inset-left) + 22px))!important;width:44%!important}
 nav{padding:0 max(0px,env(safe-area-inset-left)) 0 max(0px,env(safe-area-inset-right))}
+
+canvas{left:-2px;top:-2px;width:calc(100% + 4px)!important;height:calc(100% + 4px)!important}
+#eyes .n{left:50%;right:auto;width:15%;height:100%;top:0;translate:-50% 0;border-radius:0;background:linear-gradient(90deg,transparent,#000 32%,#000 68%,transparent)}
+#wel span{font-size:min(5vh,26px)!important;letter-spacing:.25em}
+#tl{top:calc(var(--tgt,0px) + 34px)!important}#tc{top:calc(var(--tgt,0px) + 2px)!important}
+.act.r{background:linear-gradient(160deg,#d6d2c2,#a29e8e)!important;border:2px solid #7d1f25!important;border-radius:9px;rotate:2deg;box-shadow:0 6px 16px #000a,inset 0 0 0 3px #d6d2c255;position:absolute}
+.act.r b{color:#16120e!important}.act.r small{color:#7d1f25!important}.act.r::after{content:'♠';position:absolute;top:1px;left:7px;font-size:13px;color:#7d1f25}
+.act.l{background:linear-gradient(90deg,#141a1a,#2b3636)!important;border:0!important;border-left:3px solid #8fb0ac!important;clip-path:polygon(0 0,86% 0,100% 50%,86% 100%,0 100%);padding-right:30px}
+.act.l b::after{content:' ➜';display:inline-block;animation:ar 1.3s infinite}@keyframes ar{50%{transform:translateX(7px)}}
+.act.c{background:radial-gradient(circle at 50% 0,#43205c,#0c0614 75%)!important;border:1px solid #9a5cff!important;border-radius:16px;box-shadow:0 0 18px #7a4cff77}
+.act.c:not(.off){animation:tp 2.2s infinite}@keyframes tp{50%{box-shadow:0 0 32px #9a5cffcc}}
+.act.c b{color:#e6d4ff!important;text-shadow:0 0 10px #9a5cff}
+#tc.pop .rd{display:inline-block;animation:rr .9s .5s both}@keyframes rr{0%{transform:translateY(-130%);opacity:0}60%{transform:translateY(10%)}80%{transform:translateY(-5%)}100%{transform:none;opacity:1}}
+#tc.pop{animation:tcs .1s 8 .9s}@keyframes tcs{50%{translate:3px 0}}
 </style></head><body>
 <script>(function(){function sh(m){var d=document.getElementById('err');if(!d){d=document.createElement('div');d.id='err';d.style.cssText='position:fixed;left:0;right:0;bottom:0;z-index:99999;background:#a00;color:#fff;font:12px monospace;padding:8px;white-space:pre-wrap;user-select:text;max-height:40vh;overflow:auto';document.body.appendChild(d)}d.textContent+=m+'\n'}
 addEventListener('error',function(e){sh('ОШИБКА: '+e.message+' ('+(e.filename||'').split('/').pop()+':'+e.lineno+')')},true);
@@ -244,7 +258,7 @@ addEventListener('unhandledrejection',function(e){sh('ОШИБКА: '+(e.reason&
 addEventListener('load',function(){if(typeof THREE==='undefined')sh('three.js не загрузился (нет доступа к cdnjs)');if(typeof Peer==='undefined')sh('PeerJS не загрузился (онлайн не будет работать)')})})()</script>
 
 <div id="rot"><div class="rbox"><svg class="ph" viewBox="0 0 64 100"><rect x="6" y="4" width="52" height="92" rx="9" fill="#0a1010" stroke="#8fb0ac" stroke-width="3"/><rect x="12" y="14" width="40" height="66" rx="3" fill="#050808" stroke="#3a4647"/><circle cx="32" cy="88" r="3.5" fill="none" stroke="#8fb0ac"/><path d="M24 40l8 14 8-14z" fill="#b3262e"/></svg><div class="arw">⟲</div><b>ПОВЕРНИ ТЕЛЕФОН</b><small>игра идёт только в горизонтальном положении</small><button id="rotB">РАЗВЕРНУТЬ</button></div></div>
-<div id="eyes"><i class="t"></i><i class="b"></i></div><div id="tgv"></div><div id="wel"><span>ДОБРО ПОЖАЛОВАТЬ</span><small>ЗА СТОЛОМ ТЕБЯ УЖЕ ЖДУТ</small></div><div id="zapfx"></div><div id="load"><div class="ld"><i></i><i></i><i></i></div><b id="ldt">ЗАГРУЗКА</b><small id="ldh"></small></div>
+<div id="eyes"><i class="t"></i><i class="b"></i><i class="n"></i></div><div id="tgv"></div><div id="wel"><span>ДОБРО ПОЖАЛОВАТЬ!</span><small>ПРОСНИСЬ</small></div><div id="zapfx"></div><div id="load"><div class="ld"><i></i><i></i><i></i></div><b id="ldt">ЗАГРУЗКА</b><small id="ldh"></small></div>
 <div id="menu" class="scr on"><div class="mdeco"><span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span><div class="fg"></div></div><div class="ttl"><div class="n21" data-t="21"><span class="fc"></span>21</div><div class="nm">Dead Hand<i class="dr a"></i><i class="dr b"></i><i class="dr c"></i><i class="dr d"></i></div></div>
 <nav><a id="bPlay"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4z"/></svg>ИГРАТЬ</a><a id="bRules"><svg viewBox="0 0 24 24"><path d="M12 6c-2-1.6-5-2-8-1.5v13c3-.5 6-.1 8 1.5 2-1.6 5-2 8-1.5v-13c-3-.5-6-.1-8 1.5zM12 6v13"/></svg>ПРАВИЛА</a><a id="bSet"><svg viewBox="0 0 24 24"><path d="M3 7h11M18 7h3M3 17h3M10 17h11"/><circle cx="16" cy="7" r="2.2"/><circle cx="8" cy="17" r="2.2"/></svg>НАСТРОЙКИ</a></nav></div>
 <div id="play" class="scr pnl"><div class="duo"><div class="pcard" id="pcMk" data-c="♠"><i></i><b>СОЗДАТЬ</b><span>КОМНАТУ</span></div><div class="pcard" id="pcJn" data-c="♦"><i></i><b>ВОЙТИ</b><span>ПО КОДУ</span></div></div><button class="m back ctr1">← назад</button></div>
@@ -265,7 +279,7 @@ addEventListener('load',function(){if(typeof THREE==='undefined')sh('three.js н
 <div id="hud" class="scr"><div id="fear"></div><div id="fps"></div>
 <div id="tl"><div class="cf"><b id="tot">0/21</b><small>СУММА</small></div><div class="hp"><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/></svg><b id="hpt">10</b><small>HP</small></div></div><div id="tc"></div><button id="bx">✕</button>
 <div id="msg"></div><div id="res"></div><div id="lb"></div>
-<button id="bPass" class="act l"><b>ПАС</b><small>Q</small></button><button id="bTr" class="act c"><b>КОЗЫРИ <u id="trn">0</u></b><small>ПРОБЕЛ</small></button><button id="bHit" class="act r"><b>ЕЩЁ</b><small>E</small></button>
+<button id="bPass" class="act l"><b>ПАС</b><small>Q</small></button><button id="bTr" class="act c"><b>КОЗЫРИ <u id="trn">0</u></b><small>ПРОБЕЛ</small></button><button id="bHit" class="act r"><b>ЕЩЁ КАРТУ</b><small>E</small></button>
 <div id="fx"></div>
 <div id="trp" class="scr pnl"></div></div>
 <script>
@@ -296,7 +310,7 @@ addEventListener('pointerdown',drone,{once:true});
 const R=new THREE.WebGLRenderer({antialias:true});R.setPixelRatio(S.hq?Math.min(devicePixelRatio,2):.65);document.body.prepend(R.domElement);
 const sc=new THREE.Scene();sc.background=new THREE.Color(0x050808);sc.fog=new THREE.FogExp2(0x050808,.11);
 const cam=new THREE.PerspectiveCamera(62,1,.3,60);cam.rotation.order='YXZ';
-function rs(){R.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.fov=cam.aspect<1?85:62;cam.updateProjectionMatrix()}addEventListener('resize',rs);try{tg.onEvent('viewportChanged',rs)}catch(e){}rs();
+function rs(){R.setSize(innerWidth+4,innerHeight+4,false);cam.aspect=innerWidth/innerHeight;cam.fov=cam.aspect<1?85:62;cam.updateProjectionMatrix()}addEventListener('resize',rs);try{tg.onEvent('viewportChanged',rs)}catch(e){}rs();
 sc.add(new THREE.AmbientLight(0x404048,.55));
 const lamp=new THREE.PointLight(0xbfd4d8,1.1,14,1.5);lamp.position.set(0,2.6,0);sc.add(lamp);
 function tex(d,w=128,h=180){const c=document.createElement('canvas');c.width=w;c.height=h;d(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.anisotropy=4;return t}
@@ -482,10 +496,10 @@ function showTr(l){const e=$('#tgv');e.innerHTML='<h4>ТЕБЕ ВЫПАЛ КОЗ
 function loading(ms,txt){const l=$('#load');$('#ldt').textContent=txt||'ЗАГРУЗКА';$('#ldh').textContent=['Не доверяй никому','Блеф — твоё оружие','21 или смерть','Козыри решают всё'][rnd(4)];l.classList.add('on');return new Promise(r=>setTimeout(()=>{l.classList.remove('on');r()},ms))}
 let IN=null;const KF=[[0,0],[1.2,0],[1.8,.25],[2.2,.25],[2.5,0],[2.9,.45],[3.5,.45],[3.8,0],[4.2,.7],[5.4,.7],[5.7,0],[6.1,.9],[8,.95],[9,1]];
 const sm=x=>{x=cl(x,0,1);return x*x*(3-2*x)},lp=(a,b,k)=>a+(b-a)*k;
-function eyes(){IN={t:performance.now()};document.body.classList.add('intro');$('#eyes').classList.add('on');for(let k=0;k<11;k++)setTimeout(()=>{beep(52,.22,'sine',.14+k*.02);setTimeout(()=>beep(46,.25,'sine',.1+k*.02),250)},300+k*1050);noise(2,400,.05,1);setTimeout(()=>noise(1.6,500,.04,1),4500);setTimeout(()=>{const w=$('#wel');w.classList.remove('on');void w.offsetWidth;w.classList.add('on');setTimeout(()=>w.classList.remove('on'),3800);try{if(S.snd){const u=new SpeechSynthesisUtterance('Добро пожаловать');u.lang='ru-RU';u.pitch=0;u.rate=.5;speechSynthesis.speak(u)}}catch(e){}},9000)}
+function eyes(){IN={t:performance.now()};document.body.classList.add('intro');$('#eyes').classList.add('on');for(let k=0;k<11;k++)setTimeout(()=>{beep(52,.22,'sine',.14+k*.02);setTimeout(()=>beep(46,.25,'sine',.1+k*.02),250)},300+k*1050);noise(2,400,.05,1);setTimeout(()=>noise(1.6,500,.04,1),4500);setTimeout(()=>{const w=$('#wel');w.classList.remove('on');void w.offsetWidth;w.classList.add('on');setTimeout(()=>w.classList.remove('on'),3800);},9000)}
 function icam(now){const u=(now-IN.t)/1000;if(u>12.5){IN=null;document.body.classList.remove('intro');$('#eyes').classList.remove('on');return null}
 let o=0;if(u>=9)o=1;else for(let i=0;i<KF.length-1;i++){if(u>=KF[i][0]&&u<KF[i+1][0]){o=lp(KF[i][1],KF[i+1][1],(u-KF[i][0])/(KF[i+1][0]-KF[i][0]));break}}
-const e=$('#eyes');e.children[0].style.translate='0 '+(-o*108)+'%';e.children[1].style.translate='0 '+(o*108)+'%';e.style.setProperty('--b',((1-o)*7+(1-sm((u-1)/8.5))*12).toFixed(1)+'px');
+const e=$('#eyes');e.children[0].style.translate='0 '+(-o*108)+'%';e.children[1].style.translate='0 '+(o*108)+'%';e.children[2].style.opacity=Math.min(1,(1-o)*1.5);e.style.setProperty('--b',((1-o)*7+(1-sm((u-1)/8.5))*12).toFixed(1)+'px');
 const k=sm((u-4)/5);return{x:Math.sin(u*.7)*.03,y:lp(.32,1.85,k),z:lp(4.3,4.5,k),p:lp(.12,-.42,k),w:Math.sin((u-3)*1.25)*.6*(1-sm((u-8)/1.5))*sm((u-2.5)/1),r:lp(1.35,0,k)+Math.sin(u*1.7)*.03*(1-k)}}
 setInterval(()=>{if(G.bustNow&&!G.rev){beep(52,.18,'sine',.3);setTimeout(()=>beep(46,.22,'sine',.25),230)}},1000);
 function useT(p,k){const ix=p.tr[k],t=T[ix];if((p.used||0)>=4){const m='Лимит: 4 козыря за раунд';p.remote?send(p.remote,{t:'toast',m}):p.bot||toast(m);return}
@@ -569,7 +583,7 @@ let i=0,pass=0,guard=0;
 while(guard++<150){if(id!==G.id)return;const p=A[i%A.length];i++;G.cur=p;hud();
 let a=p.bot?await bot(p,id):await human(p);if(id!==G.id)return;
 if(a=='hit'&&!G.deck.length)a='stand';
-if(a=='hit'){draw(p,false);pass=0;await sleep(1400)}else{pass++;if(p.bot)toastA(p.name+': ПАС',1400);await sleep(1200)}
+if(a=='hit'){draw(p,false);pass=0;await sleep(2800)}else{pass++;if(p.bot)toastA(p.name+': ПАС',1400);await sleep(1200)}
 if(pass>=A.length)break}
 G.cur=null;await resolve(id,A)}
 function human(p){return new Promise(r=>{if(tot(p)>G.target&&!p.tr.length){toast('ПЕРЕБОР');return setTimeout(()=>r('stand'),1000)}p.remote||toast('ТВОЙ ХОД',1500);G.tmEnd=Date.now()+30000;G.res=r;G.resP=p;hud()})}
@@ -583,7 +597,7 @@ if(best<0){txt='ВСЕ ПЕРЕБРАЛИ\nНИЧЬЯ';G.tv='НИЧЬЯ'}
 else{const w=ok.filter(x=>x.t==best);txt='ПОБЕДА: '+w.map(x=>x.p.name).join(', ')+' ('+best+')';G.tv=w.some(x=>!x.p.bot)?'ВЫ':'ПРОИГРЫШ';
 let gain=0;s.forEach(x=>{if(w.includes(x))return;const d=Math.min(x.p.hp,Math.max(0,G.bet-x.p.sh));x.p.hp-=d;gain+=d;txt+='\n'+x.p.name+': −'+d+' HP';if(d){shot(x.p);if(!x.p.bot)x.p.remote?send(x.p.remote,{t:'hurt'}):hurt()}if(x.p.hp<=0&&x.p.fig)x.p.fig.userData.dead=true});
 if(gain){const q=Math.floor(gain/w.length);w.forEach((x,i)=>x.p.hp+=q+(i==0?gain-q*w.length:0));txt+='\n'+w.map(x=>x.p.name).join(', ')+': +'+gain+' HP'}}
-big(txt,4800);bc({t:'big',m:txt,ms:4800});hud();await sleep(5200);G.rev=false}
+hud();await sleep(5200);G.rev=false}
 
 /* ---------- онлайн (WebRTC, без своего сервера) ---------- */
 const ICE={config:{iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'},{urls:'turn:openrelay.metered.ca:80',username:'openrelayproject',credential:'openrelayproject'},{urls:'turn:openrelay.metered.ca:443',username:'openrelayproject',credential:'openrelayproject'},{urls:'turn:openrelay.metered.ca:443?transport=tcp',username:'openrelayproject',credential:'openrelayproject'}]}};let CODE='',cv=false;
@@ -659,4 +673,14 @@ const PTR={x:0,y:0},PX=[...document.querySelectorAll('.n21,.nm')],MG='nav a,.act
 addEventListener('pointermove',e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;PTR.x=x;PTR.y=y;PX.forEach((p,i)=>p.style.translate=(-x*(18+i*10))+'px '+(-y*12)+'px');
 document.querySelectorAll(MG).forEach(t=>{const r=t.getBoundingClientRect();if(!r.width)return;const dx=e.clientX-r.left-r.width/2,dy=e.clientY-r.top-r.height/2,k=Math.max(0,1-Math.hypot(dx,dy)/200);t.style.translate=dx*.28*k+'px '+dy*.4*k+'px';t.style.scale=1+.07*k})});
 addEventListener('pointerup',e=>{if(e.pointerType=='touch')document.querySelectorAll(MG).forEach(t=>{t.style.translate='';t.style.scale=''})});
+
+/* ---------- люк в столе: часть стола переворачивается, под ней карта ---------- */
+const _ac=addCard;addCard=function(p,v,hid){_ac(p,v,hid);const k=p.cards[p.cards.length-1];if(!k||!k.g)return;
+k.g.visible=false;const t=k.g.userData.t;k.g.position.copy(t);
+const H=new THREE.Group(),mt=k.m.material;H.rotation.order='YXZ';H.rotation.y=p.a;
+H.add(new THREE.Mesh(new THREE.BoxGeometry(.86,.05,1.16),new THREE.MeshStandardMaterial({color:0x14100c,roughness:.9})));
+const cd=new THREE.Mesh(new THREE.PlaneGeometry(.72,1.02),mt);cd.rotation.x=Math.PI/2;cd.position.y=-.03;H.add(cd);
+H.position.set(t.x,.03,t.z);sc.add(H);noise(.5,260,.1,1);beep(90,.4,'square',.05);
+const t0=performance.now();(function st(){const u=Math.min(1,(performance.now()-t0)/1900),e=u<.5?2*u*u:1-Math.pow(-2*u+2,2)/2;
+H.rotation.x=Math.PI*e;H.position.y=.03+Math.sin(Math.PI*e)*.4;if(u<1)requestAnimationFrame(st);else{sc.remove(H);k.g.visible=true;beep(220,.12,'triangle',.1)}})()};
 </script></body></html>
